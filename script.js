@@ -4,7 +4,8 @@ const items = document.querySelectorAll('.carousel-item');
 const mobileMainImg = document.getElementById('mobileMainImg');
 const mobileThumbnails = document.getElementById('mobileThumbnails');
 const portfolioItems = document.querySelectorAll('.portfolio-item');
-const filterBtns = document.querySelectorAll('.tab-btn');
+const filterBtns = document.querySelectorAll('#portfolio .tab-btn');
+const coverupFilterBtns = document.querySelectorAll('#coverup .tab-btn');
 
 let currentMobileIndex = 0;
 let isTicking = false;
@@ -520,37 +521,116 @@ const generateStars = (containerId, count) => {
   }
 };
 
-// coverup SLIDER
+// coverup SLIDER & FILTERING
 const coverupSlides = document.querySelectorAll('.coverup-slide');
-const coverupDots = document.querySelectorAll('.coverup-dots .dot');
-const prevBtn = document.querySelector('.prev-btn');
-const nextBtn = document.querySelector('.next-btn');
-let currentSlide = 0;
+const coverupDotsContainer = document.querySelector('.coverup-dots');
+const prevBtnCoverup = document.querySelector('.prev-btn');
+const nextBtnCoverup = document.querySelector('.next-btn');
+// coverupFilterBtns is already defined above
 
-const showSlide = (index) => {
-  coverupSlides.forEach(slide => slide.classList.remove('active'));
-  coverupDots.forEach(dot => dot.classList.remove('active'));
+let currentSlideCoverup = 0;
+let visibleSlides = Array.from(coverupSlides).filter(slide => 
+  slide.getAttribute('data-category') === 'tapa-tattoo'
+);
 
-  coverupSlides[index].classList.add('active');
-  coverupDots[index].classList.add('active');
-  currentSlide = index;
+const showSlideCoverup = (index) => {
+  if (visibleSlides.length === 0) return;
+  
+  // Hide all slides
+  coverupSlides.forEach(slide => {
+    slide.classList.remove('active');
+    slide.style.display = 'none';
+  });
+  
+  const dots = coverupDotsContainer.querySelectorAll('.dot');
+  dots.forEach(dot => dot.classList.remove('active'));
+
+  // Show active slide
+  const slideToShow = visibleSlides[index];
+  if (slideToShow) {
+    slideToShow.style.display = 'block';
+    void slideToShow.offsetWidth; 
+    slideToShow.classList.add('active');
+  }
+  
+  if (dots[index]) {
+    dots[index].classList.add('active');
+  }
+  
+  currentSlideCoverup = index;
 };
 
-if (prevBtn && nextBtn) {
-  prevBtn.addEventListener('click', () => {
-    const newIndex = currentSlide === 0 ? coverupSlides.length - 1 : currentSlide - 1;
-    showSlide(newIndex);
+const updateCoverupDots = () => {
+  if (!coverupDotsContainer) return;
+  coverupDotsContainer.innerHTML = '';
+  visibleSlides.forEach((_, index) => {
+    const dot = document.createElement('span');
+    dot.className = 'dot' + (index === 0 ? ' active' : '');
+    dot.addEventListener('click', () => showSlideCoverup(index));
+    coverupDotsContainer.appendChild(dot);
+  });
+};
+
+const filterCoverupSlides = (category) => {
+  visibleSlides = Array.from(coverupSlides).filter(slide => 
+    slide.getAttribute('data-category') === category
+  );
+  
+  const sliderContainer = document.querySelector('.coverup-slider-container');
+  let noContentMsg = document.getElementById('coverup-no-content');
+  
+  if (visibleSlides.length === 0) {
+    sliderContainer.style.display = 'none';
+    if (!noContentMsg) {
+      noContentMsg = document.createElement('div');
+      noContentMsg.id = 'coverup-no-content';
+      noContentMsg.className = 'no-content-message';
+      noContentMsg.innerHTML = `
+        <div class="coming-soon">
+          <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" fill="none" stroke-width="1">
+            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <h3>Próximamente</h3>
+          <p>Estamos preparando las fotos para esta categoría. ¡Volvé pronto!</p>
+        </div>
+      `;
+      sliderContainer.parentNode.insertBefore(noContentMsg, document.querySelector('.coverup-nav'));
+    } else {
+      noContentMsg.style.display = 'block';
+    }
+    document.querySelector('.coverup-nav').style.display = 'none';
+  } else {
+    sliderContainer.style.display = 'block';
+    if (noContentMsg) noContentMsg.style.display = 'none';
+    document.querySelector('.coverup-nav').style.display = 'flex';
+    updateCoverupDots();
+    showSlideCoverup(0);
+  }
+};
+
+if (prevBtnCoverup && nextBtnCoverup) {
+  prevBtnCoverup.addEventListener('click', () => {
+    if (visibleSlides.length === 0) return;
+    const newIndex = currentSlideCoverup === 0 ? visibleSlides.length - 1 : currentSlideCoverup - 1;
+    showSlideCoverup(newIndex);
   });
 
-  nextBtn.addEventListener('click', () => {
-    const newIndex = currentSlide === coverupSlides.length - 1 ? 0 : currentSlide + 1;
-    showSlide(newIndex);
-  });
-
-  coverupDots.forEach((dot, index) => {
-    dot.addEventListener('click', () => showSlide(index));
+  nextBtnCoverup.addEventListener('click', () => {
+    if (visibleSlides.length === 0) return;
+    const newIndex = currentSlideCoverup === visibleSlides.length - 1 ? 0 : currentSlideCoverup + 1;
+    showSlideCoverup(newIndex);
   });
 }
+
+coverupFilterBtns.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    coverupFilterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterCoverupSlides(btn.getAttribute('data-filter'));
+  });
+});
 
 // Before/After Slider Drag Functionality
 document.querySelectorAll('.before-after-container').forEach(container => {
@@ -610,6 +690,9 @@ window.addEventListener('load', () => {
 
   // Lightbox Init
   initLightbox();
+
+  // Coverup Init
+  filterCoverupSlides('tapa-tattoo');
 
   // Stars
   generateStars('stars', 100);
