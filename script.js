@@ -615,6 +615,7 @@ window.addEventListener('load', () => {
   generateStars('stars', 100);
   generateStars('stars-gallery', 80);
   generateStars('stars-info', 50);
+  generateStars('stars-testimony', 60);
 });
 
 window.addEventListener('resize', () => {

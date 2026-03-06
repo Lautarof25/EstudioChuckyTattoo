@@ -2723,3 +2723,165 @@ img {
     height: 10px;
   }
 }
+
+/* TESTIMONY SECTION */
+.testimony-section {
+  padding: 8rem 20px;
+  background-color: #030303;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimony-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.testimony-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.testimony-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  margin-bottom: 4rem;
+}
+
+.testimony-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 3rem 2rem 2rem;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+}
+
+.testimony-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 79, 163, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 79, 163, 0.1);
+}
+
+.quote-icon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  color: rgba(255, 79, 163, 0.2);
+  transition: color 0.3s ease;
+}
+
+.testimony-card:hover .quote-icon {
+  color: rgba(255, 79, 163, 0.6);
+}
+
+.testimony-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.testimony-author {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.author-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.author-stars {
+  color: #ffb800;
+  /* Gold/Yellow for stars */
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(255, 184, 0, 0.3);
+}
+
+.testimony-link {
+  margin-left: auto;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.testimony-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+.testimony-link:hover {
+  background: rgba(255, 79, 163, 0.2);
+  border-color: rgba(255, 79, 163, 0.5);
+  color: #ff4fa3;
+  transform: rotate(15deg) scale(1.1);
+}
+
+.testimony-footer-cta {
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .testimony-section {
+    padding: 4rem 15px;
+  }
+
+  .testimony-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .testimony-card {
+    padding: 2.5rem 1.5rem 1.5rem;
+  }
+
+  .testimony-text {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+}
