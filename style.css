@@ -1631,6 +1631,49 @@ img {
   transform: translateY(-2px);
 }
 
+.portfolio-subtabs {
+  display: none;
+  justify-content: center;
+  gap: 10px;
+  margin-top: -1.5rem;
+  margin-bottom: 2.5rem;
+  animation: slideDownFade 0.4s ease forwards;
+}
+
+.portfolio-subtabs.active {
+  display: flex;
+}
+
+.sub-tab-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 6px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.sub-tab-btn:hover,
+.sub-tab-btn.active {
+  background: rgba(255, 79, 163, 0.15);
+  border-color: rgba(255, 79, 163, 0.4);
+  color: #fff;
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

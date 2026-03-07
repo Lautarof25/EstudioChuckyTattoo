@@ -131,54 +131,144 @@ filterBtns.forEach(btn => {
     filterBtns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const filterValue = btn.getAttribute('data-filter');
-
-    // Filter desktop grid
-    portfolioItems.forEach(item => {
-      if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-        item.classList.remove('hidden');
-        void item.offsetWidth;
-        item.style.animation = 'none';
-        setTimeout(() => {
-          item.style.animation = 'fadeIn 0.5s ease forwards';
-        }, 10);
-      } else {
-        item.classList.add('hidden');
-      }
-    });
-
-    // Filter mobile gallery
-    if (isMobileView() && mobileThumbnails) {
-      currentMobileIndex = 0;
-      const visibleItems = Array.from(portfolioItems).filter(item =>
-        filterValue === 'all' || item.getAttribute('data-category') === filterValue
-      );
-
-      mobileThumbnails.innerHTML = '';
-      visibleItems.forEach((item, index) => {
-        const img = item.querySelector('img');
-        const thumbnail = document.createElement('div');
-        thumbnail.className = 'mobile-thumbnail' + (index === 0 ? ' active' : '');
-        thumbnail.innerHTML = `<img src="${img.src}" alt="Thumbnail ${index + 1}">`;
-        thumbnail.addEventListener('click', () => {
-          currentMobileIndex = index;
-          const currentVisible = Array.from(mobileThumbnails.querySelectorAll('.mobile-thumbnail'));
-          currentVisible.forEach(t => t.classList.remove('active'));
-          thumbnail.classList.add('active');
-          mobileMainImg.src = img.src;
-          mobileMainImg.alt = img.alt;
+    const portfolioGrid = document.getElementById('portfolioGrid');
+    const portfolioSubtabs = document.getElementById('portfolioSubtabs');
+    let noContentMsg = document.getElementById('portfolio-no-content');
+    
+    // Handle Suptabs visibility
+    if (filterValue === 'piercings' || filterValue.startsWith('piercings-')) {
+      if (portfolioSubtabs.innerHTML === '' || !portfolioSubtabs.classList.contains('active')) {
+        portfolioSubtabs.innerHTML = `
+          <button class="sub-tab-btn ${filterValue === 'piercings' ? 'active' : ''}" data-filter="piercings">Todos</button>
+          <button class="sub-tab-btn ${filterValue === 'piercings-normal' ? 'active' : ''}" data-filter="piercings-normal">Tradicionales</button>
+          <button class="sub-tab-btn ${filterValue === 'piercings-titanio' ? 'active' : ''}" data-filter="piercings-titanio">Titanio Premium</button>
+        `;
+        portfolioSubtabs.classList.add('active');
+        
+        // Add listeners to new sub-buttons
+        portfolioSubtabs.querySelectorAll('.sub-tab-btn').forEach(subBtn => {
+          subBtn.addEventListener('click', () => {
+            portfolioSubtabs.querySelectorAll('.sub-tab-btn').forEach(sb => sb.classList.remove('active'));
+            subBtn.classList.add('active');
+            filterPortfolio(subBtn.getAttribute('data-filter'));
+          });
         });
-        mobileThumbnails.appendChild(thumbnail);
-      });
-
-      // Update main image to first visible item
-      if (visibleItems.length > 0) {
-        const firstImg = visibleItems[0].querySelector('img');
-        mobileMainImg.src = firstImg.src;
-        mobileMainImg.alt = firstImg.alt;
       }
+    } else {
+      portfolioSubtabs.innerHTML = '';
+      portfolioSubtabs.classList.remove('active');
     }
+
+    filterPortfolio(filterValue);
   });
 });
+
+const filterPortfolio = (filterValue) => {
+  const portfolioGrid = document.getElementById('portfolioGrid');
+  const portfolioItems = document.querySelectorAll('.portfolio-item');
+  let noContentMsg = document.getElementById('portfolio-no-content');
+  
+  // Filter desktop grid
+  let visibleCount = 0;
+  portfolioItems.forEach(item => {
+    const itemCategory = item.getAttribute('data-category');
+    const isVisible = filterValue === 'all' || 
+                      itemCategory === filterValue || 
+                      (filterValue === 'piercings' && itemCategory.startsWith('piercings-'));
+
+    if (isVisible) {
+      item.classList.remove('hidden');
+      visibleCount++;
+      void item.offsetWidth;
+      item.style.animation = 'none';
+      setTimeout(() => {
+        item.style.animation = 'fadeIn 0.5s ease forwards';
+      }, 10);
+    } else {
+      item.classList.add('hidden');
+    }
+  });
+
+  // Toggle no-content message
+  if (visibleCount === 0) {
+    portfolioGrid.style.display = 'none';
+    const mobileGallery = document.getElementById('mobileGallery');
+    if (mobileGallery) mobileGallery.style.display = 'none';
+    
+    if (!noContentMsg) {
+      noContentMsg = document.createElement('div');
+      noContentMsg.id = 'portfolio-no-content';
+      noContentMsg.className = 'no-content-message';
+      portfolioGrid.parentNode.insertBefore(noContentMsg, portfolioGrid.nextSibling);
+    }
+    
+    if (filterValue === 'piercings-titanio' || filterValue === 'titanio') {
+      noContentMsg.innerHTML = `
+        <div class="coming-soon">
+          <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" fill="none" stroke-width="1.5">
+            <path d="M12 6v6m0 0v6m0-6h6m-6 0H6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20.88 18.09A5 5 0 0018 9h-1.26A8 8 0 103 16.29" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Joyas de Titanio</h3>
+          <p>Material de primera calidad e hipoalergénico, ideal para implantes subdérmicos y piercings íntimos.</p>
+          <p class="small-text" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 0.5rem;">Próximamente fotos del stock disponible.</p>
+        </div>
+      `;
+    } else {
+      noContentMsg.innerHTML = `
+        <div class="coming-soon">
+          <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" fill="none" stroke-width="1">
+            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <h3>Próximamente</h3>
+          <p>Estamos preparando las fotos para esta categoría. ¡Volvé pronto!</p>
+        </div>
+      `;
+    }
+    noContentMsg.style.display = 'block';
+  } else {
+    portfolioGrid.style.display = 'grid';
+    const mobileGallery = document.getElementById('mobileGallery');
+    if (mobileGallery && isMobileView()) mobileGallery.style.display = 'block';
+    
+    if (noContentMsg) noContentMsg.style.display = 'none';
+  }
+
+  // Filter mobile gallery
+  if (isMobileView() && mobileThumbnails) {
+    currentMobileIndex = 0;
+    const visibleItems = Array.from(portfolioItems).filter(item => {
+      const itemCat = item.getAttribute('data-category');
+      return filterValue === 'all' || 
+             itemCat === filterValue || 
+             (filterValue === 'piercings' && itemCat.startsWith('piercings-'));
+    });
+
+    mobileThumbnails.innerHTML = '';
+    visibleItems.forEach((item, index) => {
+      const img = item.querySelector('img');
+      const thumbnail = document.createElement('div');
+      thumbnail.className = 'mobile-thumbnail' + (index === 0 ? ' active' : '');
+      thumbnail.innerHTML = `<img src="${img.src}" alt="Thumbnail ${index + 1}">`;
+      thumbnail.addEventListener('click', () => {
+        currentMobileIndex = index;
+        const currentVisible = Array.from(mobileThumbnails.querySelectorAll('.mobile-thumbnail'));
+        currentVisible.forEach(t => t.classList.remove('active'));
+        thumbnail.classList.add('active');
+        mobileMainImg.src = img.src;
+        mobileMainImg.alt = img.alt;
+      });
+      mobileThumbnails.appendChild(thumbnail);
+    });
+
+    // Update main image to first visible item
+    if (visibleItems.length > 0) {
+      const firstImg = visibleItems[0].querySelector('img');
+      mobileMainImg.src = firstImg.src;
+      mobileMainImg.alt = firstImg.alt;
+    }
+  }
+};
 
 // MOBILE GALLERY (PORTFOLIO)
 const isMobileView = () => window.innerWidth <= 768;
