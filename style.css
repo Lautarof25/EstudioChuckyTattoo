@@ -2275,6 +2275,41 @@ img {
   margin: 0 auto 3rem;
 }
 
+.category-description {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  font-style: italic;
+  font-family: 'Outfit', sans-serif;
+  animation: fadeIn 0.5s ease forwards;
+  position: relative;
+  padding: 0 1rem;
+}
+
+.category-description::before {
+  content: '"';
+  font-family: serif;
+  font-size: 2rem;
+  color: #ff4fa3;
+  opacity: 0.5;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.category-description::after {
+  content: '"';
+  font-family: serif;
+  font-size: 2rem;
+  color: #ff4fa3;
+  opacity: 0.5;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
 .coverup-slider-container {
   max-width: 600px;
   margin: 0 auto;

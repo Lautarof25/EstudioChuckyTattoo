@@ -662,6 +662,23 @@ const updateCoverupDots = () => {
 };
 
 const filterCoverupSlides = (category) => {
+  // Description mapper
+  const descriptions = {
+    'tapa-tattoo': 'Especialistas en transformar antiguos diseños en verdaderas piezas de arte, devolviéndote la confianza de lucir tu piel.',
+    'estrias': 'El tatuaje en estrías y cicatrices no solo nos eleva el autoestima sino que curan el alma y llenan de felicidad al cliente.',
+    'micro': 'Realza tu belleza natural con trazos precisos y pigmentos de alta calidad que armonizan tus facciones.',
+    'dermo': 'Tratamientos innovadores para revitalizar y perfeccionar la textura de tu piel con resultados sorprendentes.'
+  };
+
+  const categoryDesc = document.getElementById('categoryDesc');
+  if (categoryDesc && descriptions[category]) {
+    categoryDesc.textContent = descriptions[category];
+    // Reset animation
+    categoryDesc.style.animation = 'none';
+    void categoryDesc.offsetWidth;
+    categoryDesc.style.animation = 'fadeIn 0.5s ease forwards';
+  }
+
   visibleSlides = Array.from(coverupSlides).filter(slide => 
     slide.getAttribute('data-category') === category
   );
