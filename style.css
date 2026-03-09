@@ -202,7 +202,7 @@ img {
 
   /* Show nav-menu when checkbox is checked */
   .nav-toggle:checked~.nav-menu {
-    max-height: 300px;
+    max-height: 600px;
   }
 
   /* Toggle hamburger animation */
@@ -1541,8 +1541,9 @@ img {
 }
 
 .info-cta {
-  display: inline-block;
-  margin-top: 2rem;
+  display: block;
+  margin: 2rem auto 0;
+  width: fit-content;
   padding: 14px 35px;
 }
 
@@ -2900,36 +2901,53 @@ img {
 }
 
 .testimony-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 79, 163, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   border-radius: 24px;
   padding: 3rem 2rem 2rem;
   position: relative;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.4s ease;
   display: flex;
   flex-direction: column;
 }
 
 .testimony-card:hover {
-  transform: translateY(-12px) scale(1.02);
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 79, 163, 0.4);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 79, 163, 0.1);
+  transform: translateY(-12px);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border-color: rgba(255, 79, 163, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 79, 163, 0.15);
 }
 
 .quote-icon {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 40px;
-  height: 40px;
-  color: rgba(255, 79, 163, 0.2);
-  transition: color 0.3s ease;
+  top: -20px;
+  left: 30px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #1a1a1f, #0d0d0f);
+  border: 1px solid rgba(255, 79, 163, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff4fa3;
+  box-shadow: 0 5px 15px rgba(255, 79, 163, 0.2);
+  transition: all 0.3s ease;
+}
+
+.quote-icon svg {
+  width: 20px;
+  height: 20px;
 }
 
 .testimony-card:hover .quote-icon {
-  color: rgba(255, 79, 163, 0.6);
+  background: linear-gradient(135deg, #ff4fa3, #9b4dca);
+  color: #fff;
+  border-color: transparent;
+  transform: scale(1.1) rotate(-10deg);
 }
 
 .testimony-text {
