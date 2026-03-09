@@ -3033,3 +3033,15 @@ img {
     margin-bottom: 1.5rem;
   }
 }
+
+/* --- PERFORMANCE OPTIMIZATIONS --- */
+/* content-visibility skips rendering of off-screen elements until they come near the viewport */
+.gallery-section,
+.services-section,
+.coverup-section,
+.about-section,
+.info-section,
+.testimony-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
