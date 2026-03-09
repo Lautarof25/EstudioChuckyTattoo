@@ -41,12 +41,13 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
   <!-- NAVIGATION MENU -->
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-logo">Estudio Chucky</div>
-      <input type="checkbox" id="nav-toggle" class="nav-toggle">
-      <label for="nav-toggle" class="hamburger">
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Abrir menú de navegación">
+      <label for="nav-toggle" class="hamburger" aria-hidden="true">
         <span></span>
         <span></span>
         <span></span>
@@ -80,9 +81,10 @@
     </div>
   </nav>
 
+  <main id="main-content">
   <section class="hero">
-    <div class="stars-container" id="stars"></div>
-    <div class="memphis-shapes">
+    <div class="stars-container" id="stars" aria-hidden="true"></div>
+    <div class="memphis-shapes" aria-hidden="true">
       <div class="memphis-dot dot-1"></div>
       <div class="memphis-dot dot-2"></div>
       <div class="memphis-dot dot-3"></div>
@@ -132,7 +134,7 @@
         negros profundos y detalles que cuentan historias.
       </p>
 
-      <a href="#" class="cta">Consultame!</a>
+      <a href="https://wa.me/541136441945" target="_blank" class="cta">Consultame!</a>
 
       <div class="social-links">
         <a href="https://www.instagram.com/estudio_chucky/" target="_blank" class="social-icon" aria-label="Instagram">
@@ -158,7 +160,7 @@
   </section>
 
   <section class="gallery-section" id="galeria">
-    <div class="stars-container" id="stars-gallery"></div>
+    <div class="stars-container" id="stars-gallery" aria-hidden="true"></div>
 
     <div class="gallery-header">
       <h2 class="gallery-title">Transformá tu piel hoy!</h2>
@@ -210,7 +212,7 @@
     </div>
 
     <div class="gallery-buttons">
-      <a href="#" class="btn-gallery primary">Reservar cita</a>
+      <a href="https://wa.me/541136441945" target="_blank" class="btn-gallery primary">Reservar cita</a>
       <a href="#portfolio" class="btn-gallery secondary">Galeria completa</a>
   </section>
 
@@ -218,11 +220,11 @@
   <section class="portfolio-section" id="portfolio">
     <div class="portfolio-intro">
       <h2 class="section-title">Mi Trabajo</h2>
-      <div class="portfolio-tabs">
-        <button class="tab-btn active" data-filter="all">Todos</button>
-        <button class="tab-btn" data-filter="tatuajes">Tatuajes</button>
-        <button class="tab-btn" data-filter="piercings">Piercings</button>
-        <button class="tab-btn" data-filter="micro">Micropigmentación</button>
+      <div class="portfolio-tabs" role="tablist">
+        <button class="tab-btn active" data-filter="all" role="tab" aria-selected="true" aria-controls="portfolioGrid">Todos</button>
+        <button class="tab-btn" data-filter="tatuajes" role="tab" aria-selected="false" aria-controls="portfolioGrid">Tatuajes</button>
+        <button class="tab-btn" data-filter="piercings" role="tab" aria-selected="false" aria-controls="portfolioGrid">Piercings</button>
+        <button class="tab-btn" data-filter="micro" role="tab" aria-selected="false" aria-controls="portfolioGrid">Micropigmentación</button>
       </div>
       <div class="portfolio-subtabs" id="portfolioSubtabs">
         <!-- Generado dinámicamente por JS -->
@@ -485,11 +487,11 @@
         Deslizá para ver el antes y después de cada procedimiento.
       </p>
 
-      <div class="coverup-tabs">
-        <button class="tab-btn active" data-filter="tapa-tattoo">Tatuajes Tapados</button>
-        <button class="tab-btn" data-filter="estrias">Estrías y Cicatrices</button>
-        <button class="tab-btn" data-filter="micro">Micropigmentación</button>
-        <button class="tab-btn" data-filter="dermo">Dermos</button>
+      <div class="coverup-tabs" role="tablist">
+        <button class="tab-btn active" data-filter="tapa-tattoo" role="tab" aria-selected="true">Tatuajes Tapados</button>
+        <button class="tab-btn" data-filter="estrias" role="tab" aria-selected="false">Estrías y Cicatrices</button>
+        <button class="tab-btn" data-filter="micro" role="tab" aria-selected="false">Micropigmentación</button>
+        <button class="tab-btn" data-filter="dermo" role="tab" aria-selected="false">Dermos</button>
       </div>
       <div id="categoryDesc" class="category-description">
         <!-- Text will be inserted by JS -->
@@ -563,14 +565,14 @@
     </div>
 
     <div class="coverup-nav">
-      <button class="coverup-btn prev-btn">&larr;</button>
+      <button class="coverup-btn prev-btn" aria-label="Imagen anterior">&larr;</button>
       <div class="coverup-dots">
         <span class="dot active" data-slide="1"></span>
         <span class="dot" data-slide="2"></span>
         <span class="dot" data-slide="3"></span>
         <span class="dot" data-slide="4"></span>
       </div>
-      <button class="coverup-btn next-btn">&rarr;</button>
+      <button class="coverup-btn next-btn" aria-label="Imagen siguiente">&rarr;</button>
     </div>
   </section>
 
@@ -627,15 +629,15 @@
 
   <!-- INFO SECTION -->
   <section class="info-section" id="info">
-    <div class="stars-container" id="stars-info"></div>
+    <div class="stars-container" id="stars-info" aria-hidden="true"></div>
     <div class="info-container">
       <h2 class="section-title">Información</h2>
-      <div class="info-tabs">
-        <button class="info-tab active" data-tab="presupuesto">Presupuesto</button>
-        <button class="info-tab" data-tab="cuidados">Cuidados Post-Tattoo</button>
-        <button class="info-tab" data-tab="estaciones">Tattoos y Estaciones</button>
-        <button class="info-tab" data-tab="jabon">¿Por qué no Jabón Blanco?</button>
-        <button class="info-tab" data-tab="medida">¿Cómo Medir tu Tattoo?</button>
+      <div class="info-tabs" role="tablist">
+        <button class="info-tab active" data-tab="presupuesto" role="tab" aria-selected="true" aria-controls="presupuesto">Presupuesto</button>
+        <button class="info-tab" data-tab="cuidados" role="tab" aria-selected="false" aria-controls="cuidados">Cuidados Post-Tattoo</button>
+        <button class="info-tab" data-tab="estaciones" role="tab" aria-selected="false" aria-controls="estaciones">Tattoos y Estaciones</button>
+        <button class="info-tab" data-tab="jabon" role="tab" aria-selected="false" aria-controls="jabon">¿Por qué no Jabón Blanco?</button>
+        <button class="info-tab" data-tab="medida" role="tab" aria-selected="false" aria-controls="medida">¿Cómo Medir tu Tattoo?</button>
       </div>
       <div class="info-content">
         <div class="info-panel active" id="presupuesto">
@@ -708,6 +710,8 @@
     </div>
   </section>
 
+  </main>
+
   <!-- FOOTER -->
   <footer id="footer" class="site-footer">
     <div class="footer-bg-shapes">
@@ -749,7 +753,7 @@
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.002567975459!2d-58.64116192388671!3d-34.60409657295423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb9b19a8e5d07%3A0x7bba2b4fdad928a9!2sEstudio%20Chucky!5e0!3m2!1sen!2sar!4v1771185669822!5m2!1sen!2sar"
           width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"></iframe>
+          referrerpolicy="no-referrer-when-downgrade" title="Ubicación de Estudio Chucky en Google Maps"></iframe>
       </div>
     </div>
   </footer>
@@ -757,7 +761,7 @@
   <!-- Testimony -->
 
   <section class="testimony-section" id="testimony">
-    <div class="stars-container" id="stars-testimony"></div>
+    <div class="stars-container" id="stars-testimony" aria-hidden="true"></div>
     <div class="testimony-container">
       <div class="testimony-header">
         <h2 class="section-title">Voces que inspiran</h2>
@@ -766,7 +770,7 @@
 
       <div class="testimony-grid">
         <div class="testimony-card">
-          <div class="quote-icon">
+          <div class="quote-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path
                 d="M3 21c3 0 7-1 7-8V5c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h4c0 5-4 8-4 8zM14 21c3 0 7-1 7-8V5c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h4c0 5-4 8-4 8z" />
@@ -794,7 +798,7 @@
         </div>
 
         <div class="testimony-card">
-          <div class="quote-icon">
+          <div class="quote-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path
                 d="M3 21c3 0 7-1 7-8V5c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h4c0 5-4 8-4 8zM14 21c3 0 7-1 7-8V5c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h4c0 5-4 8-4 8z" />
@@ -823,7 +827,7 @@
         </div>
 
         <div class="testimony-card">
-          <div class="quote-icon">
+          <div class="quote-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path
                 d="M3 21c3 0 7-1 7-8V5c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h4c0 5-4 8-4 8zM14 21c3 0 7-1 7-8V5c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h4c0 5-4 8-4 8z" />

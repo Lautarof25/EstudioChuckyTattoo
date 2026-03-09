@@ -128,8 +128,12 @@ items.forEach((item, index) => {
 // PORTFOLIO FILTERING
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
-    filterBtns.forEach(b => b.classList.remove('active'));
+    filterBtns.forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
+    });
     btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
     const filterValue = btn.getAttribute('data-filter');
     const portfolioGrid = document.getElementById('portfolioGrid');
     const portfolioSubtabs = document.getElementById('portfolioSubtabs');
@@ -139,17 +143,21 @@ filterBtns.forEach(btn => {
     if (filterValue === 'piercings' || filterValue.startsWith('piercings-')) {
       if (portfolioSubtabs.innerHTML === '' || !portfolioSubtabs.classList.contains('active')) {
         portfolioSubtabs.innerHTML = `
-          <button class="sub-tab-btn ${filterValue === 'piercings' ? 'active' : ''}" data-filter="piercings">Todos</button>
-          <button class="sub-tab-btn ${filterValue === 'piercings-normal' ? 'active' : ''}" data-filter="piercings-normal">Tradicionales</button>
-          <button class="sub-tab-btn ${filterValue === 'piercings-titanio' ? 'active' : ''}" data-filter="piercings-titanio">Titanio Premium</button>
+          <button class="sub-tab-btn ${filterValue === 'piercings' ? 'active' : ''}" data-filter="piercings" role="tab" aria-selected="${filterValue === 'piercings'}">Todos</button>
+          <button class="sub-tab-btn ${filterValue === 'piercings-normal' ? 'active' : ''}" data-filter="piercings-normal" role="tab" aria-selected="${filterValue === 'piercings-normal'}">Tradicionales</button>
+          <button class="sub-tab-btn ${filterValue === 'piercings-titanio' ? 'active' : ''}" data-filter="piercings-titanio" role="tab" aria-selected="${filterValue === 'piercings-titanio'}">Titanio Premium</button>
         `;
         portfolioSubtabs.classList.add('active');
         
         // Add listeners to new sub-buttons
         portfolioSubtabs.querySelectorAll('.sub-tab-btn').forEach(subBtn => {
           subBtn.addEventListener('click', () => {
-            portfolioSubtabs.querySelectorAll('.sub-tab-btn').forEach(sb => sb.classList.remove('active'));
+            portfolioSubtabs.querySelectorAll('.sub-tab-btn').forEach(sb => {
+              sb.classList.remove('active');
+              sb.setAttribute('aria-selected', 'false');
+            });
             subBtn.classList.add('active');
+            subBtn.setAttribute('aria-selected', 'true');
             filterPortfolio(subBtn.getAttribute('data-filter'));
           });
         });
@@ -581,8 +589,12 @@ infoTabs.forEach(tab => {
   tab.addEventListener('click', () => {
     const targetTab = tab.getAttribute('data-tab');
 
-    infoTabs.forEach(t => t.classList.remove('active'));
+    infoTabs.forEach(t => {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+    });
     tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
 
     infoPanels.forEach(panel => {
       panel.classList.remove('active');
@@ -733,8 +745,12 @@ coverupFilterBtns.forEach(btn => {
   btn.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
-    coverupFilterBtns.forEach(b => b.classList.remove('active'));
+    coverupFilterBtns.forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
+    });
     btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
     filterCoverupSlides(btn.getAttribute('data-filter'));
   });
 });
