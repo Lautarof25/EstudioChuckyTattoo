@@ -235,9 +235,9 @@ const filterPortfolio = (filterValue) => {
     }
     noContentMsg.style.display = 'block';
   } else {
-    portfolioGrid.style.display = 'grid';
+    portfolioGrid.style.display = '';
     const mobileGallery = document.getElementById('mobileGallery');
-    if (mobileGallery && isMobileView()) mobileGallery.style.display = 'block';
+    if (mobileGallery) mobileGallery.style.display = '';
     
     if (noContentMsg) noContentMsg.style.display = 'none';
   }
